@@ -12,6 +12,8 @@ import Formulas as formula_file
 #please enter the wavelength in nm, temperature in celcius and pressure in Pa
 def thermal_describtion_glass(glass_name,wavelength,P,T):
     
+   
+    
     wavelength=wavelength/1000
     #open the directory and files
     for filename in os.listdir(os.path.abspath('AGF\\')):
@@ -191,22 +193,27 @@ def thermal_describtion_glass(glass_name,wavelength,P,T):
                 
             #refractive index(air) at temperature T and Pressure P Pa
             n_air_catT = (1.0000  +  (((n_air_15 - 1)*P)/((1.0000 + 0.0034785*(T - 15))*101325) ) )
+            thermal_describtion_glass.n_air_catT = n_air_catT
             print("\nRefractive index of air at given temperature and pressure is : ",end=' ')
             print(n_air_catT)
             
             n_rel_givenT = (n0  +  (n_abs_change/n_air_catT0))*(n_air_catT0/n_air_catT)
-     
+            thermal_describtion_glass.n_rel_givenT = n_rel_givenT
+            
+            
             print("\nRefractive index at given temperature is : ",end = ' ' )
             print(n_rel_givenT)
             print("Temperature is :  ",end =' ')
             print(T)
         else:
             print('\nThere is no glass with name ' + glass_name + ' in file ' + filename)
+            continue
 
-if __name__ == "__main__":
-    glass_name = input("\nEnter the name of glass type :  ")
-    wavelength = float(input("\nEnter the wavelength in nm : "))
-    T =float(input("\nEnter the temeperature of surrounding in celcius : "))
-    P=float(input("\nEnter the pressure of surrounding in Pa : "))
-    thermal_describtion_glass(glass_name,wavelength,P,T)
+
+if __name__ == "__main__" :
+        glass_name = input("\nEnter the name of glass type :  ")
+        wavelength = float(input("\nEnter the wavelength in nm : "))
+        T =float(input("\nEnter the temeperature of surrounding in celcius : "))
+        P=float(input("\nEnter the pressure of surrounding in Pa : "))
+        thermal_describtion_glass(glass_name,wavelength,P,T)
     
